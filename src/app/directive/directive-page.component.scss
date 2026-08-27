@@ -1,0 +1,33 @@
+section {
+  margin-bottom: 32px;
+  max-width: 900px;
+}
+
+h3 {
+  margin-bottom: 4px;
+  font-size: 15px;
+}
+
+p {
+  margin-top: 0;
+  color: #555;
+  font-size: 13px;
+}
+
+.lead {
+  max-width: 900px;
+  font-size: 14px;
+}
+
+dx-date-box {
+  display: block;
+  max-width: 320px;
+}
+
+.resolved {
+  background: #f4f4f4;
+  border-radius: 4px;
+  padding: 12px;
+  font-size: 12px;
+  white-space: pre-wrap;
+}

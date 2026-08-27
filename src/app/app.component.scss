@@ -1,0 +1,41 @@
+header {
+  padding: 24px 32px 0;
+  background: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+header p {
+  margin: 0 0 16px;
+  max-width: 900px;
+  color: #555;
+  font-size: 13px;
+}
+
+nav {
+  display: flex;
+  gap: 24px;
+}
+
+nav a {
+  padding: 8px 0 10px;
+  text-decoration: none;
+  color: #555;
+  font-size: 14px;
+  border-bottom: 2px solid transparent;
+
+  &.active {
+    color: #1976d2;
+    border-bottom-color: #1976d2;
+    font-weight: 600;
+  }
+}
+
+main {
+  padding: 24px 32px 48px;
+}

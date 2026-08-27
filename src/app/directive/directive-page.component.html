@@ -1,0 +1,41 @@
+<h2>Approach 1 &mdash; a directive supplies the defaults</h2>
+
+<p class="lead">
+  The only integration step is adding <code>DxSharedDefaultsDirective</code> to this component's
+  <code>imports</code>. Nothing is marked up on the elements themselves, and nothing here imports
+  <code>devextreme/ui/*</code> for configuration purposes.
+</p>
+
+<section>
+  <h3>DateBox, nothing set in the template</h3>
+  <p>Gets the whole house style: ISO display format, mask behaviour, clear button, filled styling.</p>
+  <dx-date-box #styledBox [value]="today"></dx-date-box>
+</section>
+
+<section>
+  <h3>DateBox with <code>displayFormat</code> set in the template</h3>
+  <p>
+    The binding wins over the shared default, exactly as it would over a widget default &mdash; while
+    the rest of the house style still applies.
+  </p>
+  <dx-date-box #overriddenBox [value]="today" displayFormat="MM/dd/yyyy"></dx-date-box>
+</section>
+
+<section>
+  <h3>DataGrid with <code>showBorders</code> turned off in the template</h3>
+  <p>
+    Search panel, filter row, header filter, paging and row alternation all come from the shared
+    configuration. Only <code>showBorders</code> is overridden here.
+  </p>
+  <dx-data-grid #grid [dataSource]="orders" [showBorders]="false">
+    <dxi-column dataField="orderNumber" caption="Order #"></dxi-column>
+    <dxi-column dataField="customerName" caption="Customer"></dxi-column>
+    <dxi-column dataField="orderDate" dataType="date"></dxi-column>
+    <dxi-column dataField="totalAmount" format="currency"></dxi-column>
+  </dx-data-grid>
+</section>
+
+<section>
+  <h3>What each widget resolved to</h3>
+  <pre class="resolved">{{ resolved }}</pre>
+</section>

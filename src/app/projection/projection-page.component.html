@@ -1,0 +1,71 @@
+<h2>Approach 2 &mdash; wrappers that accept projected configuration</h2>
+
+<p class="lead">
+  Each wrapper carries the house style and exposes two customisation channels: projected
+  <code>dxo-*</code> configuration components, and plain <code>&#64;Input()</code>s. Projected
+  configuration overrides the house style; anything not projected keeps it.
+</p>
+
+<section>
+  <h3>A card with nothing projected</h3>
+  <p>Search panel, filter row, header filter and paging all come from the shared configuration.</p>
+  <app-dx-grid-card #plainCard title="Recent orders" [dataSource]="orders" [columns]="columns">
+  </app-dx-grid-card>
+</section>
+
+<section>
+  <h3>The same card, customised by projection</h3>
+  <p>
+    The projected search panel replaces only the keys it sets. <code>filterRow.applyFilter</code>
+    still comes from the house style, because DevExtreme merges a default rule with a partial
+    override rather than replacing the whole object.
+  </p>
+  <app-dx-grid-card
+    #customisedCard
+    title="Orders with a custom search panel and no row alternation"
+    [dataSource]="orders"
+    [columns]="columns"
+    [alternateRows]="false">
+    <dxo-data-grid-search-panel [visible]="true" [width]="400" placeholder="Find an order...">
+    </dxo-data-grid-search-panel>
+  </app-dx-grid-card>
+</section>
+
+<section>
+  <h3>The same pattern on a simple editor</h3>
+  <p>
+    The left field takes the house style as-is. The right one projects calendar options into the
+    wrapped DateBox.
+  </p>
+  <div class="fields">
+    <app-dx-date-field #plainField label="Order date" [value]="today"></app-dx-date-field>
+
+    <app-dx-date-field #customisedField label="Delivery date (week starts Monday)" [value]="today">
+      <dxo-date-box-calendar-options [firstDayOfWeek]="1"></dxo-date-box-calendar-options>
+    </app-dx-date-field>
+  </div>
+</section>
+
+<section class="note">
+  <h3>Why columns come in as data and are rendered by the card</h3>
+  <p>
+    <code>dxi-*</code> collection items are gathered by the inner component's own content query, and
+    Angular queries match by declaration view &mdash; so a column written inside
+    <code>&lt;app-dx-grid-card&gt;</code> is a content child of the card, never of the grid inside
+    it, and <code>&lt;ng-content&gt;</code> does not change that. Forwarding them by hand makes
+    matters worse: the inner query then resolves empty and overwrites the forwarded list, leaving a
+    grid with no columns and no error.
+  </p>
+  <p>
+    So the card takes <code>columns</code> as data and renders real
+    <code>&lt;dxi-data-grid-column&gt;</code> components in its own template. Declared there they are
+    content children of the grid, its query finds them normally, and they behave exactly as
+    hand-written markup would &mdash; note that <code>orderDate</code> still gets its caption
+    generated automatically.
+  </p>
+</section>
+
+<section>
+  <h3>What each grid resolved to</h3>
+  <pre class="resolved">{{ resolved }}</pre>
+</section>
